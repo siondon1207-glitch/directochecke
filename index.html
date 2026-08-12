@@ -1,23 +1,747 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
+
+
+    <!-- JSON-LD 구조화 데이터 적용 (네이버 AI 탭, 구글 스니펫 최적화) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Product",
+          "@id": "https://car.reliabledone.com/#product",
+          "name": "2026 메르세데스-벤츠 C클래스 (Mercedes-Benz C-Class W206)",
+          "image": "https://www.mercedes-benz.co.kr/content/dam/mb-na-assets/vehicles/2026/c-class/sedan/gallery/2026-c-class-sedan-gallery-1.jpg",
+          "description": "독일 프리미엄 브랜드 메르세데스-벤츠의 대표 D세그먼트 세단, 2026년형 C클래스의 공식 트림별 가격 및 제원 정보입니다.",
+          "brand": {
+            "@type": "Brand",
+            "name": "메르세데스-벤츠"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "KRW",
+            "lowPrice": "64300000",
+            "highPrice": "68300000",
+            "offerCount": "2"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://car.reliabledone.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "2026년형 벤츠 C클래스 공식 가격은 얼마인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "2026년형 벤츠 C클래스는 가솔린 2.0 엔진 단일 파워트레인으로 출시되었으며, 세부 가격은 C200 아방가르드 6,510만 원(개별소비세 30퍼센트 인하 적용 시 6,430만 원), C200 AMG 라인 6,830만 원(개별소비세 인하 적용 시 6,750만 원)으로 책정되었습니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "C200 아방가르드와 AMG 라인의 핵심 차이점은 무엇인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "두 트림은 동일한 48V 마일드 하이브리드 파워트레인을 공유하지만 외장 디자인 범퍼, 그릴, 휠 크기 및 실내 D컷 스티어링 휠, 스포츠 시트, 대시보드 마감재 등 스타일링과 일부 편의 사양에서 차이가 발생합니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "벤츠 C클래스 구매 시 적용 가능한 할인 프로모션 혜택은 어떻게 되나요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "구매 시기 및 금융 이용 상품(현금, 할부, 리스 등)에 따라 다르나, 공식 프로모션 외에 수입차 전문 에이전시 업체를 통한 비공식 추가 할인 및 현금지원, 사은품 증정 등 다양한 이벤트 혜택을 비교하여 최저가로 구매할 수 있습니다."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --primary-navy: #0F1A2C;
+            --accent-gold: #B19470;
+            --soft-gold: #E6D5B8;
+            --bg-cream: #F9F8F6;
+            --bg-white: #FFFFFF;
+            --text-dark: #2C3333;
+            --text-muted: #6B7280;
+            --border-light: #E8E6E3;
+            --success-green: #4E6C50;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+            letter-spacing: -0.02em;
+        }
+
+        header {
+            background-color: var(--primary-navy);
+            padding: 25px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.6em;
+            color: var(--bg-white);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        header nav a {
+            color: var(--soft-gold);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: var(--bg-white);
+        }
+
+        .hero {
+            background-image: linear-gradient(rgba(15, 26, 44, 0.85), rgba(15, 26, 44, 0.95)), url('https://www.mercedes-benz.co.kr/content/dam/mb-na-assets/vehicles/2026/c-class/sedan/gallery/2026-c-class-sedan-gallery-1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--bg-white);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--soft-gold);
+        }
+
+        .hero p {
+            font-size: 1.25em;
+            margin-bottom: 40px;
+            color: var(--border-light);
+            font-weight: 300;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .content-card {
+            background-color: var(--bg-white);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(15, 26, 44, 0.04);
+            margin-bottom: 40px;
+            border: 1px solid var(--border-light);
+        }
+
+        .content-card h3 {
+            font-size: 1.8em;
+            color: var(--primary-navy);
+            border-left: 5px solid var(--accent-gold);
+            padding-left: 15px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .content-card p {
+            font-size: 1.05em;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .premium-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 0.95em;
+        }
+
+        .premium-table th {
+            background-color: var(--primary-navy);
+            color: var(--bg-white);
+            padding: 15px;
+            font-weight: 500;
+            border: 1px solid var(--primary-navy);
+        }
+
+        .premium-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-light);
+            text-align: center;
+        }
+
+        .premium-table tr:nth-child(even) {
+            background-color: var(--bg-cream);
+        }
+
+        /* 계산기 섹션 스타일링 */
+        .calculator-box {
+            background-color: var(--primary-navy);
+            color: var(--bg-white);
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .calculator-box h4 {
+            font-size: 1.4em;
+            color: var(--soft-gold);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .calculator-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: var(--soft-gold);
+            font-weight: 500;
+        }
+
+        .calculator-form select,
+        .calculator-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--bg-white);
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .calculator-form select option {
+            background-color: var(--primary-navy);
+            color: var(--bg-white);
+        }
+
+        .calc-btn {
+            background-color: var(--accent-gold);
+            color: var(--primary-navy);
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calc-btn:hover {
+            background-color: var(--soft-gold);
+        }
+
+        .calc-result {
+            margin-top: 25px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .calc-result p {
+            margin: 10px 0;
+            font-size: 0.95em;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .calc-result span {
+            font-weight: 700;
+            color: var(--soft-gold);
+        }
+
+        .consult-form {
+            background-color: var(--bg-cream);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .consult-form h4 {
+            margin-top: 0;
+            color: var(--primary-navy);
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .consult-form input,
+        .consult-form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            box-sizing: border-box;
+            background-color: var(--bg-white);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-navy);
+            color: var(--bg-white);
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--primary-navy);
+        }
+
+        /* 키워드 태그 클라우드 */
+        .keyword-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .keyword-tag {
+            background-color: var(--bg-cream);
+            color: var(--primary-navy);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85em;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+        }
+
+        /* FAQ 아코디언 */
+        .faq-wrapper {
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border-light);
+            padding: 18px 0;
+        }
+
+        .faq-trigger {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--primary-navy);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-content {
+            display: none;
+            padding-top: 12px;
+            color: var(--text-muted);
+            font-size: 0.95em;
+            text-align: justify;
+        }
+
+        .faq-item.active .faq-content {
+            display: block;
+        }
+
+        /* 푸터 디자인 */
+        footer {
+            background-color: var(--primary-navy);
+            color: var(--border-light);
+            padding: 60px 20px 40px;
+            font-size: 0.9em;
+            border-top: 3px solid var(--accent-gold);
+        }
+
+        .footer-links {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .footer-links a {
+            color: var(--soft-gold);
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--bg-white);
+        }
+
+        .footer-info {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1><a href="/">2026 벤츠 C클래스 가이드</a></h1>
+            <nav>
+                <a href="#section-price">트림별 가격표</a>
+                <a href="#section-calculator">실구매가 계산기</a>
+                <a href="#section-analysis">모델별 정밀 분석</a>
+                <a href="#section-faq">자주 묻는 질문</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="hero-container">
+            <h2>메르세데스-벤츠 C클래스 가격 정보 및 2026 수입 동향</h2>
+            <p>
+                새로운 혁신과 세련미의 조화, 2026년형 벤츠 C클래스의 공식 출고가부터 
+                금융 요금제 설계, 전국 대리점 견적 비교 분석을 아우르는 최적의 솔루션을 제공합니다.
+            </p>
+        </div>
     </main>
-  </body>
-</html>
+
+    <div class="main-container">
+        <!-- 왼쪽: 상세 정보 및 콘텐츠 영역 -->
+        <section>
+            <div id="section-price" class="content-card">
+                <h3>2026 벤츠 C클래스 공식 판매 가격표</h3>
+                <p>
+                    2026년 기준으로 수입 유통망을 정비한 메르세데스-벤츠 코리아는 준중형 세단 세그먼트의 
+                    절대 강자이자 많은 마니아들의 드림카로 꼽히는 5세대 C클래스(코드네임 W206)의 공급 정책에 변화를 주었습니다. 
+                    현재 한국 시장에 정식 유통되는 모델 종류는 가솔린 2.0 파워트레인을 탑재한 후륜구동 C200 단일 트림군으로 개편되었으며, 
+                    이는 상위 라인업인 신형 E클래스 패밀리와의 가격 간섭을 예방하고 보다 합리적인 구매 가치를 제시하려는 브랜드 본사의 전략입니다.
+                </p>
+                <p>
+                    각 대리점 및 수입차 마켓플레이스에서 안내하는 2026년형 가솔린 2.0(개별소비세 인하 종료 기준 및 인하 기준 반영분)의 공식 금액과 
+                    실제 납부하게 될 평균 공채 비용 등을 정리한 정밀 표를 아래와 같이 제시합니다.
+                </p>
+
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>세부 등급 모델명</th>
+                            <th>공식 MSRP 가격</th>
+                            <th>개별소비세 인하 적용가</th>
+                            <th>복합 연비</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>C200 아방가르드 (C 200 Avantgarde)</td>
+                            <td>65,100,000 원</td>
+                            <td>64,300,000 원</td>
+                            <td>12.0 km/l (휘발유)</td>
+                        </tr>
+                        <tr>
+                            <td>C200 AMG 라인 (C 200 AMG Line)</td>
+                            <td>68,300,000 원</td>
+                            <td>67,500,000 원</td>
+                            <td>12.0 km/l (휘발유)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    해당 권장 소비자 가격표는 국내 정식 딜러망을 기준으로 하며, 제조사 본사의 수시 정책이나 물량 소진 속도, 
+                    혹은 현금지원 및 지원금 프로모션 유무에 따라 실질적인 딜러 할인 체감 수준은 달라질 수 있습니다. 
+                    따라서 구입 신청 전에 정확한 금액 분석 컨설팅을 받는 것이 가장 권장되는 안전한 방법입니다.
+                </p>
+            </div>
+
+            <div id="section-analysis" class="content-card">
+                <h3>트림별 특징 및 단종/역사 모델 종류 총괄</h3>
+                <p>
+                    벤츠 C클래스는 역사적으로 긴 세월 동안 세대의 진화를 거듭해 왔습니다. 3세대 C클래스(W204)와 4세대 C클래스(W205)를 거쳐, 
+                    현행 5세대 C클래스(W206)에 이르기까지 고급 컴팩트 후륜구동 레이아웃의 표준을 수립해 왔습니다. 
+                    이 과정에서 소비자의 니즈를 충족시키기 위해 가솔린뿐만 아니라 디젤, 하이브리드, 왜건 등 광범위한 종류의 트림이 출시되었습니다.
+                </p>
+                <p>
+                    다음은 W206 최신형 모델뿐만 아니라, 국내외 중고차 거래 커뮤니티인 보배드림, 디시인사이드 차갤, 펨코 및 에펨코리아의 정보지 등에서 
+                    소비자들이 활발하게 비교 분석하며 좌표나 매물을 찾는 역대 C클래스 주요 등급 모델 일람입니다. 
+                    이러한 종류 파악은 중고차 시세 분석과 신차 구매 가치 결정을 위한 핵심 기초 데이터가 됩니다.
+                </p>
+
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>세대 구분</th>
+                            <th>구동 및 엔진 종류</th>
+                            <th>해당 세부 모델명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>5세대 (W206) 현행 모델</td>
+                            <td>가솔린 후륜 / 사륜</td>
+                            <td>C200 아방가르드, C200 AMG 라인, C300 아방가르드, C300 AMG 라인, C200 4MATIC 아방가르드, C200 4MATIC AMG 라인, C300 4MATIC 아방가르드, C300 4MATIC AMG 라인</td>
+                        </tr>
+                        <tr>
+                            <td>5세대 (W206) 및 PHEV</td>
+                            <td>디젤 / 플러그인 하이브리드</td>
+                            <td>C220d 아방가르드, C220d 4MATIC 아방가르드, C300e 플러그인 하이브리드</td>
+                        </tr>
+                        <tr>
+                            <td>4세대 (W205) 과거 모델</td>
+                            <td>가솔린 및 디젤</td>
+                            <td>C220d 익스클루시브, C220d 4MATIC 익스클루시브, C220d AMG 라인, C250d 4MATIC 아방가르드, C200 d, C200 쿠페, C200 카브리올레, C200 에스테이트, C220d 쿠페, C250 쿠페, C300 쿠페, C300 카브리올레</td>
+                        </tr>
+                        <tr>
+                            <td>메르세데스-AMG 고성능군</td>
+                            <td>고성능 전용 가솔린</td>
+                            <td>AMG C43 4MATIC, AMG C63, AMG C63 S, AMG C63 S E 퍼포먼스</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    W206 신형 C클래스는 기본 등급인 C 200 AV(아방가르드) 모델에 크롬 싱글 루브르 라디에이터 그릴과 고급스럽고 안락함을 최적화한 컴포트 서스펜션을 채택하여 패밀리카와 출퇴근용 비즈니스 세단 모두 만족하는 럭셔리 구성을 보여줍니다. 
+                    반면, C 200 AMG 라인 모델은 메르세데스-벤츠만의 레이싱 헤리티지를 계승하여 다이내믹한 전용 바디 스타일링 범퍼, 스타 패턴 그릴, 19인치 AMG 대형 멀티 스포크 경량 알로이 휠 및 한층 더 예민하고 다단화된 스포츠 서스펜션을 이식해 극대화된 달리기 성능과 주행의 장점을 발휘합니다.
+                </p>
+                <p>
+                    두 모델의 가격적 단점은 다소 좁아진 느낌을 주는 리어 2열 레그룸 공간과 이전 세대 대비 상향된 판매 비용 등입니다. 
+                    그러나 벤츠라는 브랜드 가치가 선사하는 최상의 감성 품질과 안전 관련 지능형 운전자 보조 시스템 패키지(드라이빙 어시스턴스 패키지 플러스)의 완벽함은 BMW 3시리즈나 아우디 A4 등 동급 경쟁 수입 차종들과의 순위 싸움에서 독보적인 우위를 점하는 비결입니다.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>오너들의 내돈내산 가감 없는 리얼 후기 및 전문가 총평</h3>
+                <p>
+                    보배드림을 비롯한 주요 커뮤니티 시승 코너와 에펨코리아 차갤 등에서 실제로 차량을 구매하여 운행 중인 고객들의 내돈내산 평가를 수렴해 보면 극명한 사용자 후기를 파악할 수 있습니다. 
+                    장점으로는 역시 플래그십 세단 S클래스에서 대물림받은 와이드 세로형 센터 디스플레이와 다채로운 연출이 가능한 화려한 앰비언트 라이트를 바탕으로 한 실내 인테리어를 꼽습니다. 
+                    기존의 단순하고 딱딱한 레이아웃에서 벗어나 밤길 주행 시 감성 충족도는 동급 체급 중 제일 훌륭하다는 평가가 주를 이룹니다.
+                </p>
+                <p>
+                    반면 오너들이 제기한 대표적인 단점은 가격적 저항선입니다. 6천만 원 중후반대에 정렬된 공식 출고 금액은 취등록 세금 및 부대 보험 요금제까지 적용하면 대략 7천만 원을 상회하는 수준에 다다릅니다. 
+                    일부 사용자들은 이 비용이면 조금 더 예산을 유연하게 설계하여 상위 등급인 E클래스 엔트리 아방가르드를 노리는 편이 훨씬 현명하다며 인터넷 정보 좌표를 수소문하기도 합니다. 
+                    또한 예전의 W205 세대와 달리 부드럽고 가벼운 주행 질감은 좋아졌지만, 스포츠 드라이빙 관점에서는 BMW 세팅에 다소 밀린다는 아쉬움 섞인 댓글도 수시로 게재되고 있습니다.
+                </p>
+                <p>
+                    다만 48V 전동식 마일드 하이브리드 인텔리전트 동력 시스템이 결합하면서 정차 후 시동이 다시 켜지는 아이들링 스톱 과정의 불쾌한 소음과 진동이 혁신적으로 제어되었고, 
+                    시내 실주행 연비 효율도 준수하게 확보되어 일상 주행의 전반적인 고급감은 완벽하다는 합의점이 도출되었습니다.
+                </p>
+            </div>
+
+            <div class="content-card">
+                <h3>인터넷 다이렉트 견적 성지 발굴 및 합리적인 구매 방법</h3>
+                <p>
+                    과거처럼 대리점을 일일이 내방하며 영업사원들의 마진율에 휘둘리지 않고, 집에서도 클릭 몇 번으로 전국 최고의 딜러사별 실시간 프로모션 한도를 대조해 주는 다이렉트 온라인 비교 사이트와 모바일 앱 플랫폼이 큰 인기를 얻고 있습니다. 
+                    스마트한 예비 차주들이 구글링, 네이버 정보 검색, 유튜브 영상 시청뿐만 아니라 트위터, 인스타그램, 페이스북의 실제 출고 소통 채널을 동원해 최상의 구매 좌표와 성지를 확보하려는 것도 이러한 트렌드 때문입니다.
+                </p>
+                <p>
+                    가장 안전하면서도 투명하게 신차를 출고하는 실용적인 방법은 금융 컨설팅 제도를 적절히 접목하는 프로세스입니다. 
+                    개인의 경제적 형편과 납부 여력에 맞춤식 설계를 시행하고, 할부 이율 혹은 리스 월 요금을 대폭 아껴주는 비공식 전문 업체를 발굴하는 것이 핵심입니다. 
+                    그뿐만 아니라 계약 전환이나 신규 거래 진행 시 프리미엄 썬팅 및 유리막 코팅 같은 정성 가득한 사은품 지급을 넘어서서, 
+                    일정 수준의 현금지원 혜택이나 주유권 및 백화점 상품권 등 파격적인 부가 이벤트를 챙기는 기술도 동반되어야 최저가 인도의 목적을 달성할 수 있습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 오른쪽: 실구매가 모의 계산기 및 실시간 상담 영역 -->
+        <aside>
+            <div id="section-calculator" class="calculator-box">
+                <h4>실구매가 모의 계산기</h4>
+                <p style="font-size: 0.85em; color: var(--border-light); margin-bottom: 20px; text-align: center;">
+                    2026년 최신 취등록세 요율(7퍼센트) 및 부대 비용 산정을 반영하여 실제 필요한 금액을 도출합니다.
+                </p>
+                <div class="calculator-form">
+                    <label for="trim-select">모델 선택</label>
+                    <select id="trim-select" onchange="calculatePrice()">
+                        <option value="64300000">C200 아방가르드 (6,430만 원)</option>
+                        <option value="67500000">C200 AMG 라인 (6,750만 원)</option>
+                    </select>
+
+                    <label for="discount-input">예상 할인 프로모션 금액 (만 원)</label>
+                    <input type="number" id="discount-input" value="400" min="0" oninput="calculatePrice()">
+
+                    <label for="finance-type">구매 형태</label>
+                    <select id="finance-type" onchange="calculatePrice()">
+                        <option value="cash">현금 / 카드 완납</option>
+                        <option value="loan">일반 금융 할부</option>
+                        <option value="lease">프리미엄 리스</option>
+                    </select>
+
+                    <button class="calc-btn" onclick="calculatePrice()">실구매 예상 견적 산출</button>
+                </div>
+
+                <div id="calc-result" class="calc-result">
+                    <p>차량 기본가: <span id="res-base">0 원</span></p>
+                    <p>공식 적용 할인: <span id="res-discount">0 원</span></p>
+                    <p>최종 인도 가격: <span id="res-car-price">0 원</span></p>
+                    <p>취등록세 (7퍼센트): <span id="res-tax">0 원</span></p>
+                    <p>부대비용 및 공채 예상액: <span id="res-extra">0 원</span></p>
+                    <hr style="border: 0.5px solid var(--accent-gold); margin: 15px 0;">
+                    <p style="font-size: 1.1em; font-weight: 700; color: var(--soft-gold);">
+                        총 소요 예상 비용: <span id="res-total">0 원</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="consult-form">
+                <h4>최저가 맞춤상담 및 자료집 신청</h4>
+                <p style="font-size: 0.85em; color: var(--text-muted); text-align: center; margin-bottom: 20px;">
+                    전문 에이전시를 통해 정식 딜러 프로모션 및 비공식 지원금, 상품권 사은품 혜택 리스트를 이메일과 카카오톡으로 즉시 송부해 드립니다.
+                </p>
+                <form onsubmit="alert('상담 신청이 완료되었습니다. 담당 전담 컨설턴트가 곧 연락드리겠습니다.'); return false;">
+                    <input type="text" placeholder="고객 성함" required>
+                    <input type="tel" placeholder="연락처 (예시: 010-1234-5678)" required>
+                    <select>
+                        <option>관심 모델: C200 아방가르드</option>
+                        <option>관심 모델: C200 AMG 라인</option>
+                        <option>관심 모델: 중고 및 타차종 비교상담</option>
+                    </select>
+                    <select>
+                        <option>이용 형태: 리스 / 장기렌트</option>
+                        <option>이용 형태: 신차 할부 구매</option>
+                        <option>이용 형태: 전액 일시불 완납</option>
+                    </select>
+                    <button type="submit" class="submit-btn">최저가 견적 및 좌표 받아보기</button>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <section class="content-card" style="max-width: 1200px; margin: 0 auto 40px; box-sizing: border-box;">
+        <div id="section-faq">
+            <h3>자주 묻는 질문 (FAQ)</h3>
+            <div class="faq-wrapper">
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaq(this)">
+                        Q1. 2026년형 벤츠 C클래스 가솔린 엔진 성능과 제원은 어떻게 계산되나요?
+                    </div>
+                    <div class="faq-content">
+                        2026년 국내 유통되는 C200 트림은 직렬 4기통 2.0 가솔린 싱글터보 엔진에 9단 자동변속기가 조합됩니다. 여기에 최고출력 204마력, 최대토크 32.6kg.m의 파워풀한 성능을 지니고 있으며, 출발이나 가속 시 48V 마일드 하이브리드 모터가 개입하여 미세한 출력 갈증을 보완하고 우수한 가속 반응성을 제공해 연비 절감과 편안한 크루징에 기여합니다.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaq(this)">
+                        Q2. 카카오톡이나 텔레그램 오픈채팅방에서 공유되는 수입차 할인 성지 좌표는 신뢰할 만한가요?
+                    </div>
+                    <div class="faq-content">
+                        온라인 커뮤니티나 SNS, 단톡방 등에서 확산되는 비공식 좌표는 일부 파격적인 조건을 제안하여 유인한 뒤, 불리한 금융 요금제를 강요하는 미끼 상품일 리스크가 농후합니다. 가급적 공인된 공식 파트너 및 합법적인 수입차 전문 금융 에이전시 업체의 객관적인 제안서를 기반으로 토스 등 대형 핀테크 금융 진단 서비스 앱이나 인공지능 어플 컨설팅 도구를 활용해 이율을 철저히 검토하는 과정이 동반되어야 안전합니다.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaq(this)">
+                        Q3. 제미나이나 챗지피티 같은 최신 인공지능 도구를 차량 구매 설계에 활용하는 방법이 있나요?
+                    </div>
+                    <div class="faq-content">
+                        최근에는 챗지피티와 제미나이 등 생성형 AI를 활용하여 본인의 자산 현황과 월 가용 예산, 세무 관련 연간 손비처리 한도를 대입해보고 가장 저렴한 리스 혹은 렌트 조건의 시뮬레이션을 돌려보시는 고객들이 급증하고 있습니다. 인공지능 비서에게 견적서 세부 내역을 학습시켜 보이지 않는 수수료 항목이나 왜곡된 이율 계산법의 단점 유무를 판정받아 내 돈을 세이브하는 안전 장치로 적극적으로 추천됩니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 40px;">관련 함께 많이 찾는 카테고리 검색어</h3>
+        <div class="keyword-container">
+            <span class="keyword-tag">#벤츠C클래스실구매가</span>
+            <span class="keyword-tag">#W206C200프로모션</span>
+            <span class="keyword-tag">#수입차할인성지</span>
+            <span class="keyword-tag">#C클래스AMG라인단점</span>
+            <span class="keyword-tag">#수입D세그먼트비교추천</span>
+            <span class="keyword-tag">#2026벤츠할인지원금</span>
+            <span class="keyword-tag">#수입차리스이율계산기</span>
+            <span class="keyword-tag">#신형C클래스출고대기기간</span>
+            <span class="keyword-tag">#벤츠C200시승기후기</span>
+            <span class="keyword-tag">#메르세데스벤츠코리아공식견적</span>
+        </div>
+    </section>
+
+  
+
+    <script>
+        // FAQ 아코디언 기능 구현
+        function toggleFaq(element) {
+            const parent = element.parentElement;
+            parent.classList.toggle('active');
+        }
+
+        // 차량 견적 자동 계산 프로그램 (JS 기반 체류시간 확장)
+        function calculatePrice() {
+            const basePrice = parseInt(document.getElementById('trim-select').value);
+            const discountInput = parseInt(document.getElementById('discount-input').value) || 0;
+            const discount = discountInput * 10000; // 만 원 단위를 원 단위로 변환
+
+            // 차량 최종 판매가격 산출
+            let finalCarPrice = basePrice - discount;
+            if (finalCarPrice < 0) finalCarPrice = 0;
+
+            // 취등록세 계산 (수입차 표준 7퍼센트 요율 적용)
+            const tax = Math.round(finalCarPrice * 0.07);
+
+            // 공채 할인, 번호판 대행, 탁송료 및 부대비용 요금 평균 책정액 (평균 약 45만 원)
+            const extraCost = 450000;
+
+            // 총 필요 금액 합산 계산
+            const totalPrice = finalCarPrice + tax + extraCost;
+
+            // 결과 화면 데이터 바인딩 및 시각 효과 노출
+            document.getElementById('res-base').innerText = basePrice.toLocaleString() + " 원";
+            document.getElementById('res-discount').innerText = discount.toLocaleString() + " 원";
+            document.getElementById('res-car-price').innerText = finalCarPrice.toLocaleString() + " 원";
+            document.getElementById('res-tax').innerText = tax.toLocaleString() + " 원";
+            document.getElementById('res-extra').innerText = extraCost.toLocaleString() + " 원";
+            document.getElementById('res-total').innerText = totalPrice.toLocaleString() + " 원";
+
+            document.getElementById('calc-result').style.display = 'block';
+        }
+
+        // 페이지 최초 로드 시 계산기 수치 초기 바인딩 실행
+        window.onload = function() {
+            calculatePrice();
+        };
+    </script>
+  
